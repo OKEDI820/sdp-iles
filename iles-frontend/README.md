@@ -1,3 +1,10 @@
 #Django-React App
 
-Initial commit
+PLAN
+Define Userstories
+
+
+FOR each:
+
+design Prototypes
+implement using react and additional libraries
