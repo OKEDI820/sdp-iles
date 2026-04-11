@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'logs',
+    'evaluations',
     'dashboard',
     'placements',
     'django.contrib.staticfiles',
