@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'users',
+    'logs',
     'dashboard',
     'placements',
     'django.contrib.staticfiles',
