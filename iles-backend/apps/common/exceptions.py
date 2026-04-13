@@ -1,0 +1,2 @@
+class InvalidWorkflowTransition(Exception):
+    pass
