@@ -15,6 +15,7 @@ class DashboardSummaryView(APIView):
         logs = WeeklyLog.objects.all()
         evaluations = Evaluation.objects.all()
         placements = InternshipPlacement.objects.all()
+        name = name.objects.all()
         if user.role == 'student':
             logs = logs.filter(student=user)
             evaluations = evaluations.filter(weekly_log__student=user)
