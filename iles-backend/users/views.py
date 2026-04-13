@@ -12,6 +12,9 @@ class CurrentUserView(APIView):
             "id": request.user.id,
             "username": request.user.username,
             "email": request.user.email,
-            "role": request.user.role
+            "role": request.user.role,
+            "name": request.user.role
+
+
         })
 # Create your views here.
