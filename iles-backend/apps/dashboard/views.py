@@ -29,6 +29,7 @@ class DashboardSummaryView(APIView):
             'approved_logs': logs.filter(status='approved').count(),
             'total_evaluations': evaluations.count(),
             'average_score': float(evaluations.aggregate(avg=Avg('total_score')).get('avg') or 0),
+            
         }
 <<<<<<< HEAD
         return Response
