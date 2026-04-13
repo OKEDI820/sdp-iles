@@ -1,3 +1,3 @@
-export default function App() {
+export default function  {
   return <h1>App Running</h1>;
 }
