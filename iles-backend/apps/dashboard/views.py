@@ -7,6 +7,7 @@ from apps.placements.models import InternshipPlacement
 from apps.logs.models import WeeklyLog
 from apps.evaluations.models import Evaluation
 
+
 class DashboardSummaryView(APIView):
     permission_classes = [IsAuthenticated]
 
