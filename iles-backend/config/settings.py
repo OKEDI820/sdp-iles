@@ -53,6 +53,12 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'django.contrib.staticfiles',
+    'dashboard',
+    'evaluations',
+    'logs',
+    'placements',
+    'common',
+    
 ]
 
 MIDDLEWARE = [
