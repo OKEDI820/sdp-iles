@@ -8,7 +8,7 @@ from apps.common.choices import ROLE_COORDINATOR, ROLE_STUDENT, ROLE_SUPERVISOR
 
 class WeeklyLogViewSet(viewsets.ModelViewSet):
     queryset = WeeklyLog.objects.select_related('student', 'placement').all()
-    serializer_class = WeeklyLogSerializer
+    
     permission_classes = [permissions.IsAuthenticated]
     search_fields = ['title', 'student__full_name', 'placement__company_name', 'status']
     ordering_fields = ['week_number', 'created_at', 'status']
