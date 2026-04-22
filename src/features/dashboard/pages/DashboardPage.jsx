@@ -11,7 +11,7 @@ import ScoreChart from '../components/ScoreChart'
 
 export default function DashboardPage() {
   const [summary, setSummary] = useState(null)
-  const [logs, setLogs] = useState([])
+  
   const [evaluations, setEvaluations] = useState([])
 
   useEffect(() => {
