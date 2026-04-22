@@ -14,6 +14,8 @@ export default function DashboardPage() {
   const [logs, setLogs] = useState([])
   const [evaluations, setEvaluations] = useState([])
 
+
+  
   useEffect(() => {
     async function loadData() {
       const [summaryResponse, logsResponse, evaluationsResponse] = await Promise.all([
