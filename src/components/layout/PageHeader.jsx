@@ -1,0 +1,1 @@
+export default function PageHeader({title,subtitle}){ return <div className="page-header"><h2>{title}</h2>{subtitle ? <p className="muted">{subtitle}</p> : null}</div> }
