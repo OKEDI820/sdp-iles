@@ -7,9 +7,7 @@ class WeeklyLog(models.Model):
     student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='weekly_logs')
     placement = models.ForeignKey('placements.InternshipPlacement', on_delete=models.CASCADE, related_name='weekly_logs')
     week_number = models.PositiveIntegerField()
-    
     title = models.CharField(max_length=200)
-    
     activities = models.TextField()
     
     challenges = models.TextField(blank=True)
