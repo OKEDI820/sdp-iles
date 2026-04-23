@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 
 class DashboardSummarySerializer(serializers.Serializer):
-    total_users = serializers.IntegerField()
+    total_users = serializers.IntegerField(),
     total_placements = serializers.IntegerField() 
     total_logs = serializers.IntegerField()
     draft_logs = serializers.IntegerField()
