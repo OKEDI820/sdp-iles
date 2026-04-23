@@ -9,9 +9,7 @@ class WeeklyLog(models.Model):
     week_number = models.PositiveIntegerField()
     title = models.CharField(max_length=200)
     activities = models.TextField()
-    
     challenges = models.TextField(blank=True)
-    
     lessons_learned = models.TextField(blank=True)
     
     date_from = models.DateField()
