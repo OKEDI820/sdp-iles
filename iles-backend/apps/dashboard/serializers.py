@@ -6,11 +6,11 @@ class DashboardSummarySerializer(serializers.Serializer):
     total_placements = serializers.IntegerField(), 
     total_logs = serializers.IntegerField(),
     draft_logs = serializers.IntegerField(),
-    submitted_logs = serializers.IntegerField(),
-    reviewed_logs = serializers.IntegerField(),
-    approved_logs = serializers.IntegerField(),
-    total_evaluations = serializers.IntegerField(),
-    average_score = serializers.FloatField(),
+    submitted_logs = serializers.IntegerField()
+    reviewed_logs = serializers.IntegerField()
+    approved_logs = serializers.IntegerField()
+    total_evaluations = serializers.IntegerField()
+    average_score = serializers.FloatField()
 
 
 
