@@ -16,11 +16,8 @@ class WeeklyLog(models.Model):
     submission_deadline = models.DateField()
     status = models.CharField(max_length=20, choices=LOG_STATUS_CHOICES, default=LOG_DRAFT)
     feedback = models.TextField(blank=True)
-    
     submitted_at = models.DateTimeField(null=True, blank=True)
-    
     reviewed_at = models.DateTimeField(null=True, blank=True)
-    
     approved_at = models.DateTimeField(null=True, blank=True)
     
     created_at = models.DateTimeField(auto_now_add=True)
