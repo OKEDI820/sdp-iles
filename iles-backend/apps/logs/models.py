@@ -11,9 +11,7 @@ class WeeklyLog(models.Model):
     activities = models.TextField()
     challenges = models.TextField(blank=True)
     lessons_learned = models.TextField(blank=True)
-    
     date_from = models.DateField()
-    
     date_to = models.DateField()
     
     submission_deadline = models.DateField()
