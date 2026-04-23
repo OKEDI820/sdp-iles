@@ -13,9 +13,7 @@ class WeeklyLog(models.Model):
     lessons_learned = models.TextField(blank=True)
     date_from = models.DateField()
     date_to = models.DateField()
-    
     submission_deadline = models.DateField()
-    
     status = models.CharField(max_length=20, choices=LOG_STATUS_CHOICES, default=LOG_DRAFT)
     feedback = models.TextField(blank=True)
     
