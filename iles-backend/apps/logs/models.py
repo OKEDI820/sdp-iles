@@ -11,20 +11,28 @@ class WeeklyLog(models.Model):
     title = models.CharField(max_length=200)
     
     activities = models.TextField()
+    
     challenges = models.TextField(blank=True)
     
     lessons_learned = models.TextField(blank=True)
+    
     date_from = models.DateField()
     
     date_to = models.DateField()
+    
     submission_deadline = models.DateField()
+    
     status = models.CharField(max_length=20, choices=LOG_STATUS_CHOICES, default=LOG_DRAFT)
     feedback = models.TextField(blank=True)
     
     submitted_at = models.DateTimeField(null=True, blank=True)
+    
     reviewed_at = models.DateTimeField(null=True, blank=True)
+    
     approved_at = models.DateTimeField(null=True, blank=True)
+    
     created_at = models.DateTimeField(auto_now_add=True)
+    
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
