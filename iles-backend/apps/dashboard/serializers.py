@@ -8,9 +8,9 @@ class DashboardSummarySerializer(serializers.Serializer):
     draft_logs = serializers.IntegerField(),
     submitted_logs = serializers.IntegerField(),
     reviewed_logs = serializers.IntegerField(),
-    approved_logs = serializers.IntegerField()
-    total_evaluations = serializers.IntegerField()
-    average_score = serializers.FloatField()
+    approved_logs = serializers.IntegerField(),
+    total_evaluations = serializers.IntegerField(),
+    average_score = serializers.FloatField(),
 
 
 
