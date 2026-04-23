@@ -19,10 +19,10 @@ class WeeklyLog(models.Model):
     submitted_at = models.DateTimeField(null=True, blank=True)
     reviewed_at = models.DateTimeField(null=True, blank=True)
     approved_at = models.DateTimeField(null=True, blank=True)
-    
     created_at = models.DateTimeField(auto_now_add=True)
-    
     updated_at = models.DateTimeField(auto_now=True)
+
+    
 
     class Meta:
         unique_together = ('student', 'week_number')
