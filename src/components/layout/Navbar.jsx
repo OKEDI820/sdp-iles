@@ -6,7 +6,7 @@ export default function Navbar() {
     <div className="navbar">
       <div>
         <strong>Internship Logging & Evaluation System</strong>
-        <p className=>Real workflow project for coursework defense</p>
+        <p className="muted">Real workflow project for coursework defense</p>
       </div>
       <div className="navbar-right">
         <span>{user?.full_name} ({user?.role})</span>
