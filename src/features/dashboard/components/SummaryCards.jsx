@@ -2,7 +2,7 @@ import Card from '../../../components/common/Card'
 
 export default function SummaryCards({ summary }) {
   const items = [
-    ['Total Logs', summary.total_logs],
+    [, summary.total_logs],
     ['Submitted', summary.submitted_logs],
     ['Reviewed', summary.reviewed_logs],
     ['Approved', summary.approved_logs],
