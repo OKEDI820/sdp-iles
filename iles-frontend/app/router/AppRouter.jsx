@@ -10,7 +10,6 @@ import UserManagementPage from '../../features/users/pages/UserManagementPage'
 
 export default function AppRouter() {
   return (
-
     
     <Routes>
       <Route path="/login" element={<LoginPage />} />
