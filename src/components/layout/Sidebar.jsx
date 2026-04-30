@@ -9,7 +9,7 @@ export default function Sidebar() {
     { to: '/placements', label: 'Placements' },
     { to: '/evaluations', label: 'Evaluations' },
   ]
-  if (user?.role ===) links.push({ to: '/users', label: 'Users' })
+  if (user?.role ===  'coordinator') links.push({ to: '/users', label: 'Users' })
   return (
     <aside className="sidebar">
       {links.map((link) => <NavLink key={link.to} to={link.to}>{link.label}</NavLink>)}
