@@ -6,14 +6,14 @@ import { Button, Card, TextField } from '../../components/ui'
 import { selectIsAuthenticated, useAuthStore } from '../../auth/store'
 
 export default function LoginPage() {
-  const authed = useAuthStore(selectIsAuthenticated)
+  const authed     = useAuthStore(selectIsAuthenticated)
   const setSession = useAuthStore((s) => s.setSession)
-  const nav = useNavigate()
-  const loc = useLocation()
-  const from = loc.state?.from || '/'
+  const nav        = useNavigate()
+  const loc        = useLocation()
+  const from       = loc.state?.from || '/'
 
-  const [form, setForm] = useState({ email: 'student@example.com', password: 'Pass1234!' })
-  const [error, setError] = useState('')
+  const [form, setForm]     = useState({ email: 'student@example.com', password: 'Pass1234!' })
+  const [error, setError]   = useState('')
   const [loading, setLoading] = useState(false)
 
   if (authed) return <Navigate to={from} replace />
@@ -30,7 +30,6 @@ export default function LoginPage() {
     setLoading(true)
     try {
       const tokens = await login(form)
-      // Briefly stash the access token so fetchMe() can use it.
       setSession({ user: null, accessToken: tokens.access, refreshToken: tokens.refresh })
       const me = await fetchMe()
       setSession({ user: me, accessToken: tokens.access, refreshToken: tokens.refresh })
@@ -46,10 +45,13 @@ export default function LoginPage() {
     <div className="login-shell">
       <div className="login-card">
         <Card title="Sign in to ILES">
+          <p className="muted" style={{ marginBottom: '1.5rem', fontSize: '0.875rem' }}>
+            Internship Log &amp; Evaluation System
+          </p>
           <form onSubmit={handleSubmit}>
             {error && <div className="alert">{error}</div>}
             <TextField
-              label="Email" name="email" type="email" autoComplete="username"
+              label="Email address" name="email" type="email" autoComplete="username"
               value={form.email} onChange={handleChange}
             />
             <TextField
