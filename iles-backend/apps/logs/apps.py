@@ -8,3 +8,4 @@ class LogsConfig(AppConfig):
     def ready(self):
         # Register post_save signals (Lecture 7).
         from . import signals  # noqa: F401
+dir

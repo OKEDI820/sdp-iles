@@ -25,7 +25,7 @@ def env_list(name: str, default: str = "") -> list[str]:
 
 
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-do-not-use-in-prod")
-DEBUG = env_bool("DEBUG", True)
+DEBUG = env_bool("DEBUG", False)
 ALLOWED_HOSTS = env_list("ALLOWED_HOSTS", "127.0.0.1,localhost")
 
 INSTALLED_APPS = [
@@ -81,13 +81,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600,
-    )
-}
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'iles_db',
+        'USER': 'postgres',
+        'PASSWORD': 'mark',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 AUTH_USER_MODEL = "users.User"
 
 # Lecture 4: strong password policy.

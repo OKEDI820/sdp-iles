@@ -186,10 +186,8 @@ def main():
         if spec["status"] == LogStatus.APPROVED:
             updates["approved_at"] = now
             updates["approved_by"] = academic
-        if updates:
-            for k, v in updates.items():
-                setattr(log, k, v)
-            log.save(update_fields=list(updates.keys()))
+            if updates:
+                WeeklyLog.objects.filter(pk=log.pk).update(**updates)
 
     # Evaluation for the approved log (week 1).
     week1 = WeeklyLog.objects.get(student=student, week_number=1)
