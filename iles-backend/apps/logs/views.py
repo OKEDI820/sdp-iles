@@ -4,7 +4,19 @@ from rest_framework.response import Response
 from .models import WeeklyLog
 from .serializers import ReviewSerializer, SubmitSerializer, WeeklyLogSerializer
 from .validators import validate_transition
-from apps.common.choices import ROLE_COORDINATOR, ROLE_STUDENT, ROLE_SUPERVISOR
+from apps.common.choices import (
+    ROLE_STUDENT,
+    ROLE_WORKPLACE_SUPERVISOR,
+    ROLE_ACADEMIC_SUPERVISOR,
+    ROLE_ADMIN,
+)
+
+SUPERVISOR_ROLES = [
+    ROLE_WORKPLACE_SUPERVISOR,
+    ROLE_ACADEMIC_SUPERVISOR,
+    ROLE_ADMIN,
+]
+
 
 class WeeklyLogViewSet(viewsets.ModelViewSet):
     queryset = WeeklyLog.objects.select_related('student', 'placement').all()
@@ -39,8 +51,10 @@ class WeeklyLogViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def review(self, request, pk=None):
         log = self.get_object()
-        if request.user.role not in [ROLE_SUPERVISOR, ROLE_COORDINATOR]:
-            return Response({'detail': 'Only supervisors/coordinators can review logs.'}, status=403)
+        if request.user.role not in SUPERVISOR_ROLES:
+            return Response(
+                {'detail': 'Only supervisors can review logs.'}, status=403
+            )
         validate_transition(log.status, 'reviewed')
         serializer = ReviewSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -50,17 +64,34 @@ class WeeklyLogViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def approve(self, request, pk=None):
         log = self.get_object()
-        if request.user.role not in [ROLE_SUPERVISOR, ROLE_COORDINATOR]:
-            return Response({'detail': 'Only supervisors/coordinators can approve logs.'}, status=403)
+        if request.user.role not in [ROLE_ACADEMIC_SUPERVISOR, ROLE_ADMIN]:
+            return Response(
+                {'detail': 'Only academic supervisors can approve logs.'}, status=403
+            )
         validate_transition(log.status, 'approved')
         log.mark_approved()
+        return Response(WeeklyLogSerializer(log).data)
+
+    @action(detail=True, methods=['post'])
+    def reject(self, request, pk=None):
+        """Reject a submitted or reviewed log."""
+        log = self.get_object()
+        if request.user.role not in SUPERVISOR_ROLES:
+            return Response(
+                {'detail': 'Only supervisors can reject logs.'}, status=403
+            )
+        validate_transition(log.status, 'rejected')
+        reason = request.data.get('reason', '')
+        log.mark_rejected(reason)
         return Response(WeeklyLogSerializer(log).data)
 
     @action(detail=True, methods=['post'], url_path='request-revision')
     def request_revision(self, request, pk=None):
         log = self.get_object()
-        if request.user.role not in [ROLE_SUPERVISOR, ROLE_COORDINATOR]:
-            return Response({'detail': 'Only supervisors/coordinators can request revision.'}, status=403)
+        if request.user.role not in SUPERVISOR_ROLES:
+            return Response(
+                {'detail': 'Only supervisors can request revision.'}, status=403
+            )
         validate_transition(log.status, 'draft')
         serializer = ReviewSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
