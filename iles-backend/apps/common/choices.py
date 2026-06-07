@@ -30,3 +30,5 @@ LOG_STATUS_CHOICES = [
     (LOG_APPROVED, 'Approved'),
     (LOG_REJECTED, 'Rejected'),
 ]
+# Lookup for human-readable role names (used by serializers for `role_label`).
+ROLE_LABELS = dict(ROLE_CHOICES)

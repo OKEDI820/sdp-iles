@@ -24,7 +24,29 @@ class WeeklyLog(models.Model):
     status = models.CharField(
         max_length=20, choices=LOG_STATUS_CHOICES, default=LOG_DRAFT
     )
-    feedback = models.TextField(blank=True)
+    
+    # UPDATED & NEW FEEDBACK FIELDS
+    review_feedback = models.TextField(blank=True)
+    rejection_reason = models.TextField(blank=True)
+    revision_request = models.TextField(blank=True)
+    
+    # NEW: Track who reviewed/approved
+    reviewed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='logs_reviewed'
+    )
+    approved_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='logs_approved'
+    )
+    
+    # TIMESTAMPS
     submitted_at = models.DateTimeField(null=True, blank=True)
     reviewed_at = models.DateTimeField(null=True, blank=True)
     approved_at = models.DateTimeField(null=True, blank=True)
@@ -41,27 +63,29 @@ class WeeklyLog(models.Model):
         self.submitted_at = timezone.now()
         self.save(update_fields=['status', 'submitted_at', 'updated_at'])
 
-    def mark_reviewed(self, feedback=''):
+    def mark_reviewed(self, feedback='', user=None):
         self.status = 'reviewed'
-        self.feedback = feedback
+        self.review_feedback = feedback
+        self.reviewed_by = user
         self.reviewed_at = timezone.now()
-        self.save(update_fields=['status', 'feedback', 'reviewed_at', 'updated_at'])
+        self.save(update_fields=['status', 'review_feedback', 'reviewed_by', 'reviewed_at', 'updated_at'])
 
-    def mark_approved(self):
+    def mark_approved(self, user=None):
         self.status = 'approved'
+        self.approved_by = user
         self.approved_at = timezone.now()
-        self.save(update_fields=['status', 'approved_at', 'updated_at'])
+        self.save(update_fields=['status', 'approved_by', 'approved_at', 'updated_at'])
 
     def mark_rejected(self, reason=''):
         self.status = 'rejected'
-        self.feedback = reason
+        self.rejection_reason = reason
         self.rejected_at = timezone.now()
-        self.save(update_fields=['status', 'feedback', 'rejected_at', 'updated_at'])
+        self.save(update_fields=['status', 'rejection_reason', 'rejected_at', 'updated_at'])
 
-    def request_revision(self, feedback=''):
+    def request_revision(self, message=''):
         self.status = 'draft'
-        self.feedback = feedback
-        self.save(update_fields=['status', 'feedback', 'updated_at'])
+        self.revision_request = message
+        self.save(update_fields=['status', 'revision_request', 'updated_at'])
 
     def __str__(self):
         return f'Week {self.week_number} - {self.student.full_name}'

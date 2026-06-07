@@ -19,7 +19,7 @@ SUPERVISOR_ROLES = [
 
 
 class WeeklyLogViewSet(viewsets.ModelViewSet):
-    queryset = WeeklyLog.objects.select_related('student', 'placement').all()
+    queryset = WeeklyLog.objects.select_related('student', 'placement', 'reviewed_by', 'approved_by').all()
     serializer_class = WeeklyLogSerializer
     permission_classes = [permissions.IsAuthenticated]
     search_fields = ['title', 'student__full_name', 'placement__company_name', 'status']
@@ -58,7 +58,10 @@ class WeeklyLogViewSet(viewsets.ModelViewSet):
         validate_transition(log.status, 'reviewed')
         serializer = ReviewSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        log.mark_reviewed(serializer.validated_data.get('feedback', ''))
+        log.mark_reviewed(
+            feedback=serializer.validated_data.get('feedback', ''),
+            user=request.user
+        )
         return Response(WeeklyLogSerializer(log).data)
 
     @action(detail=True, methods=['post'])
@@ -69,7 +72,7 @@ class WeeklyLogViewSet(viewsets.ModelViewSet):
                 {'detail': 'Only academic supervisors can approve logs.'}, status=403
             )
         validate_transition(log.status, 'approved')
-        log.mark_approved()
+        log.mark_approved(user=request.user)
         return Response(WeeklyLogSerializer(log).data)
 
     @action(detail=True, methods=['post'])
@@ -95,5 +98,7 @@ class WeeklyLogViewSet(viewsets.ModelViewSet):
         validate_transition(log.status, 'draft')
         serializer = ReviewSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        log.request_revision(serializer.validated_data.get('feedback', ''))
+        log.request_revision(
+            message=serializer.validated_data.get('feedback', '')
+        )
         return Response(WeeklyLogSerializer(log).data)
