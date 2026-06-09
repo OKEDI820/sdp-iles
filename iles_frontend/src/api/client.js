@@ -54,7 +54,7 @@ async function refreshAccessToken() {
   const { refreshToken, setAccessToken } = useAuthStore.getState()
   if (!refreshToken) throw new Error('no-refresh-token')
   refreshing = axios
-    .post('/api/v1/auth/refresh/', { refresh: refreshToken })
+    .post(`${API_BASE_URL}/auth/refresh/`, { refresh: refreshToken })
     .then((res) => {
       setAccessToken(res.data.access)
       return res.data.access
