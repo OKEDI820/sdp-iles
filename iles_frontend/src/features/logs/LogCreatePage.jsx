@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { createLog } from '../../api/logs'
 import { fetchPlacements } from '../../api/placements'
 import { errorMessage } from '../../api/client'
-import { Button, Card, SelectField, TextAreaField, TextField } from '../../components/ui'
+import { Button, Card, TextAreaField, TextField } from '../../components/ui'
 import { useNotify } from '../../hooks/useNotify'
 import { useAuthStore } from '../../auth/store'
 import { isStudent } from '../../utils/constants'
@@ -12,7 +12,7 @@ export default function LogCreatePage() {
   const user = useAuthStore((s) => s.user)
   const notify = useNotify()
   const nav = useNavigate()
-  const [placements, setPlacements] = useState([])
+  const [placement, setPlacement] = useState(null)
   const [form, setForm] = useState({
     placement: '', week_number: 1, title: '', activities: '',
     challenges: '', lessons_learned: '', week_start: '', week_end: '',
@@ -22,9 +22,10 @@ export default function LogCreatePage() {
 
   useEffect(() => {
     fetchPlacements().then((data) => {
-      setPlacements(data.results || [])
       if (data.results?.length === 1) {
-        setForm((f) => ({ ...f, placement: data.results[0].id }))
+        const p = data.results[0]
+        setPlacement(p)
+        setForm((f) => ({ ...f, placement: p.id }))
       }
     })
   }, [])
@@ -33,7 +34,7 @@ export default function LogCreatePage() {
 
   const validate = () => {
     const e = {}
-    if (!form.placement) e.placement = 'Choose a placement.'
+    if (!form.placement) e.placement = 'Placement is required.'
     if (!form.title.trim()) e.title = 'Title is required.'
     if ((form.activities || '').trim().length < 10) e.activities = 'At least 10 characters.'
     if (!form.week_start) e.week_start = 'Week start is required.'
@@ -74,14 +75,13 @@ export default function LogCreatePage() {
   return (
     <Card title="New weekly log">
       <form onSubmit={handleSubmit}>
-        <SelectField
-          label="Placement" name="placement" value={form.placement}
-          onChange={handleChange} error={errors.placement}
-          options={[
-            { value: '', label: '— Select placement —' },
-            ...placements.map((p) => ({ value: p.id, label: p.company_name })),
-          ]}
+        {/* Display placement as read-only field */}
+        <TextField
+          label="Placement"
+          value={placement?.company_name || 'Loading...'}
+          readOnly
         />
+
         <div className="grid grid-2">
           <TextField label="Week number" name="week_number" type="number" min={1}
                      value={form.week_number} onChange={handleChange} error={errors.week_number} />
