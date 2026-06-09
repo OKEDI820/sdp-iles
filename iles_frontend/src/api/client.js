@@ -9,7 +9,7 @@ import { useAuthStore } from '../auth/store'
  * - On refresh failure, clears the session so the router redirects to login.
  */
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
+  baseURL: https://mukisa-api.tagooledavid.com/api/v1,
   headers: { 'Content-Type': 'application/json' },
 })
 
