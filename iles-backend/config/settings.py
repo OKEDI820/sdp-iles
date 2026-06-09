@@ -25,6 +25,18 @@ ALLOWED_HOSTS = ["mukisa-api.tagooledavid.com",
     "localhost",
     "127.0.0.1"]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://mukisa-api.tagooledavid.com",
+    "http://localhost:5173",
+    "http://127.0.0.:5173",
+    
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://mukisa-api.tagooledavid.com",
+    "http://localhost:5173",
+    "http://127.0.0.:5173",
+]
 
 # Application definition
 
