@@ -6,4 +6,7 @@ djangorestframework_simplejwt==5.5.1
 PyJWT==2.12.1
 sqlparse==0.5.5
 tzdata==2026.1
-gunicorn, psycopg2-binary, dj-database-url, python-dotenv
+gunicorn
+psycopg2-binary 
+dj-database-url
+python-dotenv
