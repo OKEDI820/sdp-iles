@@ -24,6 +24,14 @@ DEBUG = True
 ALLOWED_HOSTS = ["mukisa-api.tagooledavid.com",
     "localhost",
     "127.0.0.1"]
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 CORS_ALLOWED_ORIGINS = [
     "https://mukisa-api.tagooledavid.com",
