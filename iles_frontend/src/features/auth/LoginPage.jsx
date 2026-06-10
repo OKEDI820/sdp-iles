@@ -60,10 +60,6 @@ export default function LoginPage() {
             />
             <Button type="submit" loading={loading}>Sign in</Button>
           </form>
-          <div className="login-hint">
-            <strong>Demo accounts</strong> — password <code>Pass1234!</code><br />
-            student@ · workplace@ · academic@ · admin@example.com
-          </div>
         </Card>
       </div>
     </div>
