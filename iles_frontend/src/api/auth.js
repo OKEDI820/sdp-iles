@@ -3,7 +3,7 @@ import { api } from './client'
 
 export async function login({ email, password }) {
   // Login uses bare axios (no interceptors) since we have no token yet.
-  const res = await axios.post('https://mukisa-api.tagooledavid.com/api/v1/auth/login/', { email, password })
+  const res = await axios.post('/api/v1/auth/login/', { email, password })
   return res.data  // { access, refresh }
 }
 

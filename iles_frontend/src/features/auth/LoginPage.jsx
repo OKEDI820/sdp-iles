@@ -60,7 +60,10 @@ export default function LoginPage() {
             />
             <Button type="submit" loading={loading}>Sign in</Button>
           </form>
+<<<<<<< HEAD
           
+=======
+>>>>>>> 94f98d3b3fa58c39207a27df5e0eaa7f74f8bcf7
         </Card>
       </div>
     </div>

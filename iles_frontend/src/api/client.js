@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useAuthStore } from '../auth/store'
+<<<<<<< HEAD
 
 /**
  * Single axios instance used for all API calls.
@@ -12,6 +13,17 @@ export const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
   headers: { 'Content-Type': 'application/json' },
 })
+=======
+    
+     // 1. Define the constant (it was missing)
+     export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://mukisa-api.tagooledavid.com/api/v1'
+    
+     export const api = axios.create({
+       // 2. Use the constant here (fixes the missing quotes syntax error)
+       baseURL: API_BASE_URL,
+      headers: { 'Content-Type': 'application/json' },
+   })
+>>>>>>> 94f98d3b3fa58c39207a27df5e0eaa7f74f8bcf7
 
 // --- Request: attach JWT ---
 api.interceptors.request.use((config) => {
@@ -54,7 +66,7 @@ async function refreshAccessToken() {
   const { refreshToken, setAccessToken } = useAuthStore.getState()
   if (!refreshToken) throw new Error('no-refresh-token')
   refreshing = axios
-    .post('/api/v1/auth/refresh/', { refresh: refreshToken })
+    .post(`${API_BASE_URL}/auth/refresh/`, { refresh: refreshToken })
     .then((res) => {
       setAccessToken(res.data.access)
       return res.data.access
