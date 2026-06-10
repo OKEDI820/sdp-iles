@@ -1,11 +1,12 @@
 import axios from 'axios'
-import { api } from './client'
-
-export async function login({ email, password }) {
-  // Login uses bare axios (no interceptors) since we have no token yet.
-  const res = await axios.post('https://mukisa-api.tagooledavid.com/api/v1/auth/login/', { email, password })
-  return res.data  // { access, refresh }
-}
+    // Import the new constant
+import { api, API_BASE_URL } from './client'
+   
+    export async function login({ email, password }) {
+      // Use the constant instead of a hardcoded string
+      const res = await axios.post(`${API_BASE_URL}/auth/login/`, { email, password })
+      return res.data 
+    }
 
 export async function fetchMe() {
   const res = await api.get('/auth/me/')
