@@ -1,17 +1,14 @@
 import axios from 'axios'
 import { useAuthStore } from '../auth/store'
-
-/**
- * Single axios instance used for all API calls.
- *
- * - Attaches the JWT to every request.
- * - On 401, transparently tries to refresh and retry the original request.
- * - On refresh failure, clears the session so the router redirects to login.
- */
-export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
-  headers: { 'Content-Type': 'application/json' },
-})
+    
+     // 1. Define the constant (it was missing)
+     export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://mukisa-api.tagooledavid.com/api/v1'
+    
+     export const api = axios.create({
+       // 2. Use the constant here (fixes the missing quotes syntax error)
+       baseURL: API_BASE_URL,
+      headers: { 'Content-Type': 'application/json' },
+   })
 
 // --- Request: attach JWT ---
 api.interceptors.request.use((config) => {
